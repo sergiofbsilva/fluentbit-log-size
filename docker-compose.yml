@@ -1,0 +1,19 @@
+services:
+  fluentbit:
+    image: fluent/fluent-bit:latest
+    volumes:
+      - ./fluentbit/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
+      - ./fluentbit/scripts:/fluent-bit/scripts
+      - ./logs:/var/log
+    ports:
+      - "2020:2020"
+      - "2021:2021"
+    depends_on:
+      - logs-generator
+
+  logs-generator:
+    image: busybox
+    volumes:
+      - ./generate-logs.sh:/generate-logs.sh
+      - ./logs:/var/log
+    command: /bin/sh -c "/generate-logs.sh"
