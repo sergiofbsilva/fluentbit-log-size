@@ -8,5 +8,6 @@ while true; do
   str_size=$((RANDOM % (120 - 20 + 1) + 20))
   message=$(generate_random_string $str_size)
   echo "{\"message\": \"$message\", \"number\":$str_size,  \"timestamp\": \"$(date +%s)\"}"  >> /var/log/dummy.log
+  echo "[$(date +%s)] non json log : message=$message size=$str_size "  >> /var/log/dummy.log
   sleep 1
 done
